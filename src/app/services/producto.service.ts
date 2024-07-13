@@ -44,11 +44,15 @@ export class ProductoService extends BaseService<IProducto>{
     })
   } 
 
-  public update(item: IProducto) {
-    this.edit(item.id, item).subscribe({
-      next: () => {
-        const updatedItems = this.itemListSignal().map(producto => producto.id === item.id ? item : producto);
-        this.itemListSignal.set(updatedItems);
+
+  public update(item: IProducto){
+
+    this.add(item).subscribe({
+  
+      next: (response: any) => {
+        const updatedItems = this.itemListSignal().map(product => product.id === item.id ? item : product);
+  
+          this.itemListSignal.set(updatedItems);
       },
       error: (error : any) => {
         this.snackBar.open(error.error.description, 'Close', {
