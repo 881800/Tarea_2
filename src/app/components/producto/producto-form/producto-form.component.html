@@ -49,15 +49,19 @@
         />
       </div>
       <div class="col-6">
-        <input #categoria="ngModel" type="text" class="form-control" id="categoria" name="categoria" 
+        <select
+          #categoria="ngModel" type="text" class="form-control" id="categoria" name="categoria" 
           placeholder="Producto categoria"
           [(ngModel)]="toUpdateProducto.categoria" 
           [ngClass]="{ 
             'is-invalid': categoria.invalid && categoria.touched,
             'is-valid': categoria.valid && categoria.touched
           }" 
-          required 
-        />
+          required >
+          @for(item of categoriaService.items$();track $index){
+            <option [value]="item.id">{{item.nombre}}</option>
+          }
+        </select> 
       </div>
       
       <div class="col-6 mt-3">
@@ -71,5 +75,4 @@
       </div>
     </div>
   </div>
-  
   

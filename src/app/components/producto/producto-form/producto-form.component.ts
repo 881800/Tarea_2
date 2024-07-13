@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IProducto } from '../../../interfaces';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CategoriaService } from '../../../services/categoria.service';
 
 @Component({
   selector: 'app-producto-form',
@@ -18,6 +19,9 @@ export class ProductoFormComponent {
   @Input() toUpdateProducto: IProducto = {};
   @Output() callParentEvent: EventEmitter<IProducto> = new EventEmitter<IProducto>();
 
+  constructor(public categoriaService: CategoriaService) { 
+    this.categoriaService.getAll();
+  }
   addEdit()  {
     this.callParentEvent.emit(this.toUpdateProducto);
   }
